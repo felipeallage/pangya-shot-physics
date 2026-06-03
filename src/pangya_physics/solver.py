@@ -80,3 +80,4 @@ def find_velocity_for_distance(
             high = mid
 
     return best_result
+    ...

@@ -1,6 +1,6 @@
-case_id,club,shot_type,power_shot,distance,height,wind,degree,ground,spin,curve,expected_power,expected_desvio,notes
-1,1W,DUNK,NO_POWER_SHOT,200,0,0,0,100,0,0,,,"baseline no wind"
-2,1W,DUNK,NO_POWER_SHOT,220,0,0,0,100,0,0,,,"baseline longer distance"
-3,1W,DUNK,NO_POWER_SHOT,200,0,9,90,100,0,0,,,"lateral wind"
-4,1W,DUNK,NO_POWER_SHOT,200,0,9,180,100,0,0,,,"head wind"
-5,1W,DUNK,NO_POWER_SHOT,200,0,9,0,100,0,0,,,"tail wind"
+case_id,player_power,auxpart_pwr,card_pwr,mascot_pwr,card_ps_pwr,club,shot_type,power_shot,distance,height,wind,degree,ground,spin,curve,expected_power,expected_desvio,notes
+1,75,12,0,0,10,1W,DUNK,NO_POWER_SHOT,200,0,0,0,100,0,0,,,"baseline no wind"
+2,75,12,0,0,10,1W,DUNK,NO_POWER_SHOT,220,0,0,0,100,0,0,,,"baseline longer distance"
+3,75,12,0,0,10,1W,DUNK,NO_POWER_SHOT,200,0,9,90,100,0,0,,,"lateral wind"
+4,75,12,0,0,10,1W,DUNK,NO_POWER_SHOT,200,0,9,180,100,0,0,,,"head wind"
+5,75,12,0,0,10,1W,DUNK,NO_POWER_SHOT,200,0,9,0,100,0,0,,,"tail wind"
