@@ -6,7 +6,13 @@ from .simulator import PangyaSimulator
 from .enums import DistanceType, ShotType, PowerShotType
 from .distance import calculate_distance_type
 from .power import ExtraPower, PlayerPower, get_power_shot_bonus
-from .solver import SolverResult, simulate_distance, find_velocity_for_distance
+from .solver import (
+    SolverResult,
+    FindPowerResult,
+    simulate_distance,
+    find_velocity_for_distance,
+    find_power,
+)
 
 __all__ = [
     "Vector3D",
@@ -26,4 +32,6 @@ __all__ = [
     "SolverResult",
     "simulate_distance",
     "find_velocity_for_distance",
+    "FindPowerResult",
+    "find_power",
 ]
