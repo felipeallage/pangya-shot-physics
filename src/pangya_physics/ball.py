@@ -21,3 +21,4 @@ class Ball:
     count: int = 0
     max_height: float = 0.0
     max_height_step: int = -1
+    simulator.ball.power_percent = percent_shot
