@@ -6,7 +6,6 @@ from .club import ClubInfo
 from .simulator import PangyaSimulator
 from .vector import Vector3D
 from .wind import Wind
-LAUNCH_ANGLE_FACTOR = 1.8
 
 @dataclass
 class SolverResult:
@@ -28,8 +27,8 @@ class FindPowerResult:
 
 
 def create_initial_velocity(club: ClubInfo, power_percent: float) -> Vector3D:
-    initial_power = club.power_base * power_percent
-    angle = club.degree_rad() * LAUNCH_ANGLE_FACTOR
+    initial_power = club.power_factor * power_percent
+    angle = club.degree_rad()
 
     velocity_y = initial_power * math.sin(angle)
     velocity_z = initial_power * math.cos(angle)
