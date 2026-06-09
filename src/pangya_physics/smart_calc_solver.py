@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from .ball import Ball
 from .club import ClubInfo
 from .simulator import PangyaSimulator
+from .solver import create_initial_velocity
 from .wind import Wind
 
 
@@ -23,11 +24,25 @@ def find_height_collision(
     target_distance: float,
     max_steps: int = 3000,
 ) -> float:
+    previous_y = simulator.ball.position.y
+
     for _ in range(max_steps):
         simulator.step()
 
-        if simulator.ball.position.y <= target_height and simulator.ball.count > 10:
-            break
+        current_y = simulator.ball.position.y
+        current_z = simulator.ball.position.z
+
+        crossed_target_height = (
+            previous_y >= target_height
+            and current_y <= target_height
+            and simulator.ball.velocity.y < 0
+            and simulator.ball.count > 10
+        )
+
+        if crossed_target_height:
+            return target_distance - current_z
+
+        previous_y = current_y
 
     return target_distance - simulator.ball.position.z
 
@@ -48,19 +63,30 @@ def find_power(
     last_error = None
     found = False
 
-    for i in range(limit_checking):
-        ball = Ball()
-        simulator = PangyaSimulator(ball=ball, club=club, wind=wind)
+    last_simulator = None
+    error = 0.0
 
-        # Por enquanto guardamos o percent_shot na bola/simulador depois,
-        # quando confirmarmos onde a força inicial é aplicada.
-        simulator.ball.power_percent = percent_shot
+    for i in range(limit_checking):
+        ball = Ball(
+            velocity=create_initial_velocity(
+                club=club,
+                power_percent=percent_shot,
+            )
+        )
+
+        simulator = PangyaSimulator(
+            ball=ball,
+            club=club,
+            wind=wind,
+        )
 
         error = find_height_collision(
             simulator=simulator,
             target_height=target_height,
             target_distance=target_distance,
         )
+
+        last_simulator = simulator
 
         if abs(error) <= margin:
             found = True
@@ -79,9 +105,9 @@ def find_power(
 
     return FindPowerResult(
         power_percent=percent_shot,
-        desvio=simulator.ball.position.x,
+        desvio=last_simulator.ball.position.x,
         power_range=club.power_base * percent_shot,
-        final_distance=simulator.ball.position.z,
+        final_distance=last_simulator.ball.position.z,
         error=error,
         iterations=i + 1,
         found=found,
