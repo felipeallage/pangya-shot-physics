@@ -55,7 +55,7 @@ def find_power(
 ) -> FindPowerResult:
     min_percent = 0.10
     max_percent = 1.30
-    feed = 0.00006
+    feed = 0.02
     margin = 0.05
     limit_checking = 1000
 
@@ -94,6 +94,9 @@ def find_power(
 
         if last_error is not None and (error > 0) != (last_error > 0):
             feed *= 0.5
+
+        if feed < 0.000001:
+            feed = 0.000001
 
         if error > 0:
             percent_shot += feed
