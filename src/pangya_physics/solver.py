@@ -6,7 +6,7 @@ from .club import ClubInfo
 from .simulator import PangyaSimulator
 from .vector import Vector3D
 from .wind import Wind
-
+LAUNCH_ANGLE_FACTOR = 1.8
 
 @dataclass
 class SolverResult:
@@ -29,7 +29,7 @@ class FindPowerResult:
 
 def create_initial_velocity(club: ClubInfo, power_percent: float) -> Vector3D:
     initial_power = club.power_base * power_percent
-    angle = club.degree_rad()
+    angle = club.degree_rad() * LAUNCH_ANGLE_FACTOR
 
     velocity_y = initial_power * math.sin(angle)
     velocity_z = initial_power * math.cos(angle)
@@ -110,14 +110,29 @@ def find_height_collision(
     target_distance: float,
     max_steps: int = 3000,
 ) -> float:
+    previous_y = simulator.ball.position.y
+    previous_z = simulator.ball.position.z
+
     for _ in range(max_steps):
         simulator.step()
 
-        if simulator.ball.position.y <= target_height and simulator.ball.count > 10:
-            break
+        current_y = simulator.ball.position.y
+        current_z = simulator.ball.position.z
+
+        crossed_target_height = (
+            previous_y >= target_height
+            and current_y <= target_height
+            and simulator.ball.velocity.y < 0
+            and simulator.ball.count > 10
+        )
+
+        if crossed_target_height:
+            return target_distance - current_z
+
+        previous_y = current_y
+        previous_z = current_z
 
     return target_distance - simulator.ball.position.z
-
 
 def find_power(
     club: ClubInfo,
@@ -165,7 +180,7 @@ def find_power(
         if abs(error) <= margin:
             return best_result
 
-        if simulator.ball.position.z < target_distance:
+        if error > 0:
             low = percent_shot
         else:
             high = percent_shot
