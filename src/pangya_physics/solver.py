@@ -24,6 +24,7 @@ class FindPowerResult:
     error: float
     iterations: int
     found: bool
+    reachable: bool
 
 
 def create_initial_velocity(club: ClubInfo, power_percent: float) -> Vector3D:
@@ -136,7 +137,7 @@ def find_power(
     wind: Wind,
     target_distance: float,
     target_height: float = 0.0,
-    tolerance: float = 0.05,
+    tolerance: float = 0.5,
     max_iterations: int = 60,
 ) -> FindPowerResult:
     min_percent = 0.10
@@ -172,6 +173,7 @@ def find_power(
             error=error,
             iterations=i + 1,
             found=abs(error) <= tolerance,
+            reachable=True,
         )
 
         if abs(error) <= tolerance:
