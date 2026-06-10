@@ -1,0 +1,19 @@
+from pangya_physics.club import ClubInfo
+from pangya_physics.wind import Wind
+
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+from pangya_physics.solver import find_power
+
+result = find_power(
+    club=club,
+    wind=Wind(0, 0),
+    target_distance=250,
+    target_height=0,
+)
+
+print(result)

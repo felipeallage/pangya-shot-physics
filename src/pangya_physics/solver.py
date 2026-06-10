@@ -110,7 +110,6 @@ def find_height_collision(
     max_steps: int = 3000,
 ) -> float:
     previous_y = simulator.ball.position.y
-    previous_z = simulator.ball.position.z
 
     for _ in range(max_steps):
         simulator.step()
@@ -129,7 +128,6 @@ def find_height_collision(
             return target_distance - current_z
 
         previous_y = current_y
-        previous_z = current_z
 
     return target_distance - simulator.ball.position.z
 
@@ -138,23 +136,23 @@ def find_power(
     wind: Wind,
     target_distance: float,
     target_height: float = 0.0,
+    tolerance: float = 0.05,
+    max_iterations: int = 60,
 ) -> FindPowerResult:
     min_percent = 0.10
     max_percent = 1.30
-    margin = 0.05
-    max_iterations = 60
 
     low = min_percent
     high = max_percent
     best_result = None
 
     for i in range(max_iterations):
-        percent_shot = (low + high) / 2
+        power_percent = (low + high) / 2
 
         ball = Ball(
             velocity=create_initial_velocity(
                 club=club,
-                power_percent=percent_shot,
+                power_percent=power_percent,
             )
         )
 
@@ -167,21 +165,21 @@ def find_power(
         )
 
         best_result = FindPowerResult(
-            power_percent=percent_shot,
+            power_percent=power_percent,
             desvio=simulator.ball.position.x,
-            power_range=club.power_base * percent_shot,
+            power_range=club.power_base * power_percent,
             final_distance=simulator.ball.position.z,
             error=error,
             iterations=i + 1,
-            found=abs(error) <= margin,
+            found=abs(error) <= tolerance,
         )
 
-        if abs(error) <= margin:
+        if abs(error) <= tolerance:
             return best_result
 
         if error > 0:
-            low = percent_shot
+            low = power_percent
         else:
-            high = percent_shot
+            high = power_percent
 
     return best_result
