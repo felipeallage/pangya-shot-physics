@@ -2,18 +2,20 @@
 
 Projeto de engenharia reversa, simulação física e análise de dados baseado na Smart Calculator de Acrisio para PangYa.
 
+---
+
 ## Objetivo
 
 O objetivo deste projeto não é simplesmente reproduzir a Smart Calculator original.
 
 A proposta é:
 
-- compreender e documentar o modelo físico do PangYa;
-- reimplementar gradualmente o simulador em Python;
-- validar resultados contra a Smart Calc original;
-- criar análises de sensibilidade;
-- desenvolver visualizações interativas;
-- construir um portfólio de Analytics e Simulação.
+* compreender e documentar o modelo físico do PangYa;
+* reimplementar gradualmente o simulador em Python;
+* validar resultados contra a Smart Calc original;
+* criar análises de sensibilidade;
+* desenvolver visualizações interativas;
+* construir um portfólio de Analytics e Simulação.
 
 ---
 
@@ -27,30 +29,46 @@ Posteriormente, Acrisio realizou engenharia reversa do jogo e desenvolveu a Smar
 
 Este projeto busca transformar esse conhecimento em um estudo moderno de:
 
-- Python
-- Simulação Física
-- Data Analytics
-- Visualização de Dados
-- Engenharia Reversa
+* Python
+* Simulação Física
+* Data Analytics
+* Visualização de Dados
+* Engenharia Reversa
 
 ---
 
 ## Tecnologias
 
-- Python
-- NumPy
-- Pandas
-- Matplotlib
-- Jupyter Notebook
-- Pytest
-- Git
-- GitHub
+### Atualmente
 
-Futuras tecnologias:
+* Python
+* NumPy
+* Pandas
+* Matplotlib
+* Jupyter Notebook
+* Pytest
+* Git
+* GitHub
 
-- Plotly
-- Streamlit
-- Docker
+### Futuras
+
+* Plotly
+* Streamlit
+* Docker
+
+---
+
+## Status Atual
+
+Atualmente o projeto conta com:
+
+* Estrutura completa como pacote Python
+* 17 testes automatizados passando
+* Simulador físico funcional
+* Solver de potência implementado
+* Auditoria inicial dos tacos concluída
+* Notebooks de validação e análise
+* Versionamento ativo via GitHub
 
 ---
 
@@ -76,11 +94,11 @@ pangya-shot-physics/
 
 Responsável por:
 
-- soma vetorial
-- subtração
-- normalização
-- produto vetorial
-- magnitude
+* soma vetorial
+* subtração
+* normalização
+* produto vetorial
+* magnitude
 
 ---
 
@@ -90,13 +108,13 @@ Representa o estado físico da bola.
 
 Inclui:
 
-- posição
-- velocidade
-- spin
-- curva
-- rotações
-- massa
-- altura máxima
+* posição
+* velocidade
+* spin
+* curva
+* rotações
+* massa
+* altura máxima
 
 ---
 
@@ -106,17 +124,17 @@ Modela os tacos do PangYa.
 
 Atualmente:
 
-- Woods
-- Irons
-- Wedges
+* Woods
+* Irons
+* Wedges
 
 Propriedades:
 
-- power_factor
-- power_base
-- loft (degree)
-- rotation_spin
-- rotation_curve
+* power_factor
+* power_base
+* loft (degree)
+* rotation_spin
+* rotation_curve
 
 ---
 
@@ -124,8 +142,8 @@ Propriedades:
 
 Conversão de:
 
-- intensidade
-- direção
+* intensidade
+* direção
 
 para vetores tridimensionais.
 
@@ -133,27 +151,31 @@ para vetores tridimensionais.
 
 ### Simulator
 
-Primeira versão do motor físico.
+Motor físico responsável pela simulação da trajetória da bola.
 
 Atualmente implementa:
 
-- gravidade
-- vento
-- curva
-- spin
-- resistência do ar (drag)
+* gravidade
+* vento
+* curva
+* spin
+* resistência do ar (drag)
 
 ---
 
 ### Solver
 
-Primeira implementação de busca iterativa.
+Implementação de busca binária para cálculo da potência necessária para atingir uma distância-alvo.
 
-Objetivo:
+Atualmente inclui:
 
-Encontrar a velocidade necessária para atingir uma distância-alvo.
+* `find_velocity_for_distance()`
+* `find_height_collision()`
+* `find_power()`
 
-Esta implementação será substituída futuramente por uma versão inspirada na função original `find_power()` da Smart Calc.
+O solver foi validado através de múltiplos testes e análises, apresentando convergência consistente para diferentes tacos e distâncias.
+
+Também é capaz de identificar automaticamente cenários fisicamente impossíveis.
 
 ---
 
@@ -161,13 +183,13 @@ Esta implementação será substituída futuramente por uma versão inspirada na
 
 ### Club Analysis
 
-Análise dos tacos:
+Análise dos parâmetros dos tacos:
 
-- Power Factor
-- Power Base
-- Rotation Spin
-- Rotation Curve
-- Loft
+* Power Factor
+* Power Base
+* Rotation Spin
+* Rotation Curve
+* Loft
 
 Notebook:
 
@@ -193,12 +215,12 @@ Notebook:
 
 Comparação de cenários:
 
-- sem vento
-- vento frontal
-- vento traseiro
-- vento lateral
-- spin
-- curva
+* sem vento
+* vento frontal
+* vento traseiro
+* vento lateral
+* spin
+* curva
 
 Notebook:
 
@@ -244,42 +266,77 @@ Notebook:
 
 ---
 
+### Power Audit
+
+Validação do algoritmo `find_power()` para diferentes tacos e distâncias.
+
+Objetivos:
+
+* medir convergência;
+* avaliar erro residual;
+* identificar distâncias inalcançáveis;
+* validar comportamento físico do simulador.
+
+Notebook:
+
+```text
+17_power_audit.ipynb
+```
+
+---
+
+## Resultados Preliminares
+
+Alguns insights já observados:
+
+* Relação não linear entre potência e distância.
+* Diferenças significativas de trajetória entre Woods, Irons e Wedges.
+* O solver converge de forma consistente para múltiplos cenários.
+* O simulador consegue identificar automaticamente limitações físicas dos tacos.
+* Exemplo observado durante os testes: um SW não consegue atingir 300y mesmo em potência máxima.
+
+O foco das próximas etapas será transformar essas simulações em datasets analíticos e visualizações exploratórias.
+
+---
+
 ## Roadmap
 
-### Fase 1
+### Fase 1 — Estrutura e Física Básica
 
-- [x] Estrutura do projeto
-- [x] Vetores 3D
-- [x] Ball
-- [x] Club
-- [x] Wind
-- [x] Simulator básico
-- [x] Testes unitários
+* [x] Estrutura do projeto
+* [x] Vetores 3D
+* [x] Ball
+* [x] Club
+* [x] Wind
+* [x] Simulator básico
+* [x] Testes unitários
 
-### Fase 2
+### Fase 2 — Simulação e Validação
 
-- [x] Solver inicial
-- [x] Club Analysis
-- [x] Trajetórias básicas
-- [x] Sensitivity Analysis
+* [x] Solver inicial
+* [x] Club Analysis
+* [x] Trajetórias básicas
+* [x] Sensitivity Analysis
 
-### Fase 3
+### Fase 3 — Engenharia Reversa da Smart Calc
 
-- [ ] Portar initShot()
-- [ ] Portar getSlope()
-- [ ] Portar getValuesDegree()
+* [ ] Portar `initShot()`
+* [ ] Portar `getSlope()`
+* [ ] Portar `getValuesDegree()`
 
-### Fase 4
+### Fase 4 — Solver Avançado e Auditoria
 
-- [ ] Portar find_power()
-- [ ] Dataset de validação
-- [ ] Comparação Python vs Smart Calc
+* [x] Implementar `find_power()`
+* [x] Power Audit
+* [ ] Dataset Analítico
+* [ ] Comparação Python vs Smart Calc
 
-### Fase 5
+### Fase 5 — Analytics e Visualização
 
-- [ ] Dashboard Streamlit
-- [ ] Visualização 3D
-- [ ] Deploy
+* [ ] Dashboard Streamlit
+* [ ] Visualização 3D
+* [ ] Gráficos interativos
+* [ ] Deploy
 
 ---
 
@@ -287,15 +344,17 @@ Notebook:
 
 A Smart Calculator original é uma ferramenta para uso no jogo.
 
-Este projeto tem outro foco:
+Este projeto possui outro foco:
 
-| Smart Calc | PangYa Shot Physics |
-|------------|---------------------|
-| Calculadora | Projeto Analítico |
-| JavaScript | Python |
-| Foco em jogar | Foco em entender |
+| Smart Calc       | PangYa Shot Physics      |
+| ---------------- | ------------------------ |
+| Calculadora      | Projeto Analítico        |
+| JavaScript       | Python                   |
+| Foco em jogar    | Foco em entender         |
 | Resultado direto | Documentação e validação |
-| Ferramenta | Portfólio de Dados |
+| Ferramenta       | Portfólio de Dados       |
+
+O objetivo não é apenas reproduzir resultados, mas compreender, documentar e analisar o comportamento físico do jogo através de métodos modernos de simulação e análise de dados.
 
 ---
 
@@ -304,6 +363,14 @@ Este projeto tem outro foco:
 Felipe Augusto Allage
 
 Projeto desenvolvido para aprofundamento em:
+
+* Python
+* Simulação Física
+* Data Analytics
+* Engenharia Reversa
+* Visualização de Dados
+* Desenvolvimento de Portfólio Técnico
+
 
 - Python
 - Simulação
