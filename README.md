@@ -65,27 +65,45 @@ Atualmente o projeto conta com:
 * Estrutura completa como pacote Python
 * 17 testes automatizados passando
 * Simulador físico funcional
-* Solver de potência implementado
-* Auditoria inicial dos tacos concluída
-* Notebooks de validação e análise
+* Solver de potência implementado e validado
+* Dashboard interativo em Streamlit
+* Dataset analítico completo dos tacos
+* Auditoria quantitativa do solver
+* Visualizações de trajetória
+* Comparação entre tacos
+* Exportação de datasets CSV
 * Versionamento ativo via GitHub
-
 ---
 
 ## Estrutura do Projeto
 
 ```text
 pangya-shot-physics/
+
+├── app.py
 │
 ├── notebooks/
-├── docs/
+│   ├── 01_smart_calc_audit.ipynb
+│   ├── 02_club_analysis.ipynb
+│   ├── 03_find_power_validation.ipynb
+│   ├── 04_club_dataset_analysis.ipynb
+│   ├── 05_club_visualizations.ipynb
+│   └── 06_trajectory_visualizations.ipynb
+│
 ├── src/
 │   └── pangya_physics/
+│
 ├── tests/
+│
+├── docs/
+│   └── images/
+│
 ├── data/
-└── app/
-```
-
+│   └── processed/
+│
+├── requirements.txt
+├── pyproject.toml
+└── README.md
 ---
 
 ## Componentes Implementados
@@ -265,6 +283,20 @@ Notebook:
 ```
 
 ---
+## Validação do Solver
+
+O algoritmo `find_power()` foi submetido a testes utilizando múltiplos tacos e diferentes distâncias alvo.
+
+Resultados observados:
+
+* Convergência em todos os cenários válidos analisados
+* Erro absoluto máximo inferior a 0.5 jarda
+* Média de convergência entre 7 e 8 iterações
+* Resultados consistentes entre Woods, Irons e Wedges
+
+Esses resultados indicam que a implementação atual é estável para utilização em análises e simulações.
+
+---
 
 ### Power Audit
 
@@ -328,15 +360,34 @@ O foco das próximas etapas será transformar essas simulações em datasets ana
 
 * [x] Implementar `find_power()`
 * [x] Power Audit
-* [ ] Dataset Analítico
+* [x] Dataset Analítico
 * [ ] Comparação Python vs Smart Calc
 
 ### Fase 5 — Analytics e Visualização
 
-* [ ] Dashboard Streamlit
+* [x] Dashboard Streamlit
+* [x] Visualizações de Trajetória
+* [x] Curvas de Potência
+* [x] Exportação de Datasets
 * [ ] Visualização 3D
-* [ ] Gráficos interativos
 * [ ] Deploy
+
+---
+
+## Principais Resultados
+
+Até o momento o projeto já produziu:
+
+* Simulador físico funcional
+* Solver de potência validado
+* Dataset analítico dos tacos
+* Curvas de potência
+* Comparações de trajetória
+* Dashboard interativo
+* Testes automatizados
+* Documentação técnica
+
+O projeto evoluiu de uma simples reimplementação da Smart Calculator para uma plataforma de estudo de física, simulação e análise de dados aplicada ao PangYa.
 
 ---
 
