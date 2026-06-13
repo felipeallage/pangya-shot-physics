@@ -104,6 +104,7 @@ pangya-shot-physics/
 ├── requirements.txt
 ├── pyproject.toml
 └── README.md
+```
 ---
 
 ## Componentes Implementados
@@ -316,6 +317,26 @@ Notebook:
 ```
 
 ---
+
+```markdown
+## Dashboard Streamlit
+
+O projeto possui um dashboard interativo desenvolvido em Streamlit.
+
+Funcionalidades:
+
+* Seleção de taco
+* Distância alvo
+* Configuração de vento
+* Cálculo automático da potência necessária
+* Visualização da trajetória da bola
+* Métricas de voo
+    * potência necessária
+    * distância final
+    * erro
+    * altura máxima
+    * tempo de voo
+```
 
 ## Resultados Preliminares
 
