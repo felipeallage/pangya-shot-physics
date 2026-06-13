@@ -64,10 +64,10 @@ def simulate_trajectory(club_name, target_distance, wind, max_steps=1000):
 
         trajectory.append({
             "step": step,
-            "time": step * STEP_TIME,
-            "x": ball.position.x,
-            "y": ball.position.y,
-            "z": ball.position.z,
+            "time": (step + 1) * STEP_TIME,
+            "lateral": ball.position.x,
+            "height": ball.position.y,
+            "distance": ball.position.z,
         })
 
         if ball.position.y <= 0 and step > 0:
@@ -82,9 +82,9 @@ def simulate_trajectory(club_name, target_distance, wind, max_steps=1000):
         "found": power_result.found,
         "reachable": power_result.reachable,
         "iterations": power_result.iterations,
-        "max_height": df["y"].max(),
+        "max_height": df["height"].max(),
         "flight_time": df["time"].max(),
-        "lateral_deviation": df["z"].iloc[-1],
+        "lateral_deviation": df["lateral"].iloc[-1],
     }
 
     return df, summary
@@ -152,8 +152,8 @@ st.subheader("Trajetória do chute")
 fig, ax = plt.subplots(figsize=(12, 6))
 
 ax.plot(
-    df_traj["x"],
-    df_traj["y"],
+    df_traj["distance"],
+    df_traj["height"],
     linewidth=2,
 )
 

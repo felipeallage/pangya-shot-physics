@@ -173,7 +173,7 @@ def find_power(
             error=error,
             iterations=i + 1,
             found=abs(error) <= tolerance,
-            reachable=True,
+            reachable=power_percent <= 1.0,
         )
 
         if abs(error) <= tolerance:
