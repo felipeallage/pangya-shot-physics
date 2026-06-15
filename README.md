@@ -1,78 +1,107 @@
 # PangYa Shot Physics
 
-Projeto de engenharia reversa, simulação física e análise de dados baseado na Smart Calculator de Acrisio para PangYa.
+Simulador físico, solver de potência e plataforma de análise de dados inspirados na Smart Calculator de PangYa.
+
+O projeto nasceu como um exercício de engenharia reversa para compreender como o jogo modela trajetórias, potência e comportamento dos diferentes tacos. Ao longo do desenvolvimento, a iniciativa evoluiu para um estudo completo envolvendo simulação física, algoritmos iterativos, testes automatizados, visualização de dados e dashboards interativos.
 
 ---
 
-## Objetivo
+## Dashboard
 
-O objetivo deste projeto não é simplesmente reproduzir a Smart Calculator original.
+![Dashboard](docs/images/screenshots/streamlit_dashboard.png)
 
-A proposta é:
-
-* compreender e documentar o modelo físico do PangYa;
-* reimplementar gradualmente o simulador em Python;
-* validar resultados contra a Smart Calc original;
-* criar análises de sensibilidade;
-* desenvolver visualizações interativas;
-* construir um portfólio de Analytics e Simulação.
+Dashboard desenvolvido em Streamlit para cálculo automático de potência e visualização de trajetórias.
 
 ---
 
-## Motivação
+## O Problema
 
-PangYa foi um dos principais responsáveis pelo meu interesse em Excel, modelagem matemática e análise de sistemas.
+Durante muitos anos a comunidade de PangYa utilizou ferramentas como a Smart Calculator para determinar a potência necessária para cada tacada.
 
-Durante muitos anos a comunidade criou tabelas, planilhas e modelos empíricos para prever tacadas.
+Apesar de extremamente populares, essas ferramentas funcionavam como caixas pretas: os jogadores utilizavam os resultados sem compreender exatamente os mecanismos por trás dos cálculos.
 
-Posteriormente, Acrisio realizou engenharia reversa do jogo e desenvolveu a Smart Calculator, permitindo simulações muito mais próximas do comportamento real do PangYa.
+Este projeto busca responder uma pergunta simples:
 
-Este projeto busca transformar esse conhecimento em um estudo moderno de:
-
-* Python
-* Simulação Física
-* Data Analytics
-* Visualização de Dados
-* Engenharia Reversa
+> Como podemos reproduzir esse comportamento utilizando Python e princípios básicos de física?
 
 ---
 
-## Tecnologias
+## Objetivos
 
-### Atualmente
-
-* Python
-* NumPy
-* Pandas
-* Matplotlib
-* Jupyter Notebook
-* Pytest
-* Git
-* GitHub
-
-### Futuras
-
-* Plotly
-* Streamlit
-* Docker
+* Estudar o funcionamento da Smart Calculator.
+* Construir um simulador físico independente.
+* Implementar um solver automático de potência.
+* Validar resultados contra referências conhecidas.
+* Criar análises exploratórias dos tacos.
+* Desenvolver visualizações e dashboards interativos.
+* Documentar todo o processo de engenharia reversa.
 
 ---
 
-## Status Atual
+## Principais Resultados
 
-Atualmente o projeto conta com:
+### Simulação Física
 
-* Estrutura completa como pacote Python
-* 17 testes automatizados passando
-* Simulador físico funcional
-* Solver de potência implementado e validado
-* Dashboard interativo em Streamlit
-* Dataset analítico completo dos tacos
-* Auditoria quantitativa do solver
-* Visualizações de trajetória
-* Comparação entre tacos
-* Exportação de datasets CSV
-* Versionamento ativo via GitHub
+O simulador calcula:
+
+* distância final;
+* altura máxima;
+* tempo de voo;
+* trajetória completa da bola;
+* influência do vento.
+
+### Solver de Potência
+
+Implementação de um algoritmo de busca binária capaz de encontrar automaticamente a potência necessária para atingir uma distância alvo.
+
+### Testes Automatizados
+
+```text
+17 testes executados
+17 testes aprovados
+0 falhas
+```
+
+### Notebooks de Análise
+
+```text
+22 notebooks
+```
+
+Explorando:
+
+* auditoria da Smart Calculator;
+* comportamento dos tacos;
+* comparação de trajetórias;
+* validação do solver;
+* análises de sensibilidade.
+
+---
+
+## Visualizações
+
+### Potência Necessária por Distância
+
+![Power Requirement](docs/images/screenshots/power_requirement_by_distance.png)
+
+Análise da relação entre distância alvo e potência calculada pelo solver.
+
+---
+
+### Comparação de Trajetórias
+
+![Trajectory Comparison](docs/images/screenshots/trajectory_comparison_200y.png)
+
+Comparação visual de trajetórias para diferentes configurações.
+
+---
+
+### Validação da Smart Calculator
+
+![Validation](docs/images/screenshots/smartcalc_validation.png)
+
+Comparação dos resultados produzidos pelo simulador com os valores utilizados como referência durante o processo de auditoria.
+
 ---
 
 ## Estrutura do Projeto
@@ -80,372 +109,148 @@ Atualmente o projeto conta com:
 ```text
 pangya-shot-physics/
 
-├── app.py
-│
-├── notebooks/
-│   ├── 01_smart_calc_audit.ipynb
-│   ├── 02_club_analysis.ipynb
-│   ├── 03_find_power_validation.ipynb
-│   ├── 04_club_dataset_analysis.ipynb
-│   ├── 05_club_visualizations.ipynb
-│   └── 06_trajectory_visualizations.ipynb
-│
 ├── src/
 │   └── pangya_physics/
+│       ├── ball.py
+│       ├── club.py
+│       ├── wind.py
+│       ├── simulator.py
+│       ├── solver.py
+│       └── distance.py
 │
 ├── tests/
 │
-├── docs/
-│   └── images/
+├── notebooks/
 │
 ├── data/
-│   └── processed/
 │
-├── requirements.txt
-├── pyproject.toml
-└── README.md
+├── docs/
+│
+└── app.py
 ```
----
-
-## Componentes Implementados
-
-### Vector3D
-
-Responsável por:
-
-* soma vetorial
-* subtração
-* normalização
-* produto vetorial
-* magnitude
 
 ---
 
-### Ball
+## Tecnologias Utilizadas
 
-Representa o estado físico da bola.
+### Linguagem
 
-Inclui:
+* Python
 
-* posição
-* velocidade
-* spin
-* curva
-* rotações
-* massa
-* altura máxima
+### Análise de Dados
 
----
+* Pandas
+* NumPy
 
-### Club
+### Visualização
 
-Modela os tacos do PangYa.
+* Matplotlib
+* Plotly
 
-Atualmente:
+### Dashboard
 
-* Woods
-* Irons
-* Wedges
+* Streamlit
 
-Propriedades:
+### Testes
 
-* power_factor
-* power_base
-* loft (degree)
-* rotation_spin
-* rotation_curve
+* Pytest
+
+### Ambiente
+
+* Jupyter Notebook
+* VS Code
+* Git
+* GitHub
 
 ---
 
-### Wind
+## Como Executar
 
-Conversão de:
+### Clonar o repositório
 
-* intensidade
-* direção
+```bash
+git clone https://github.com/felipeallage/pangya-shot-physics.git
 
-para vetores tridimensionais.
+cd pangya-shot-physics
+```
 
----
+### Criar ambiente virtual
 
-### Simulator
+```bash
+python -m venv .venv
+```
 
-Motor físico responsável pela simulação da trajetória da bola.
+### Instalar dependências
 
-Atualmente implementa:
+```bash
+pip install -r requirements.txt
+```
 
-* gravidade
-* vento
-* curva
-* spin
-* resistência do ar (drag)
+### Executar testes
 
----
+```bash
+pytest
+```
 
-### Solver
+### Executar dashboard
 
-Implementação de busca binária para cálculo da potência necessária para atingir uma distância-alvo.
-
-Atualmente inclui:
-
-* `find_velocity_for_distance()`
-* `find_height_collision()`
-* `find_power()`
-
-O solver foi validado através de múltiplos testes e análises, apresentando convergência consistente para diferentes tacos e distâncias.
-
-Também é capaz de identificar automaticamente cenários fisicamente impossíveis.
+```bash
+streamlit run app.py
+```
 
 ---
 
-## Análises Desenvolvidas
+## Documentação
 
-### Club Analysis
-
-Análise dos parâmetros dos tacos:
-
-* Power Factor
-* Power Base
-* Rotation Spin
-* Rotation Curve
-* Loft
-
-Notebook:
+Documentação complementar disponível em:
 
 ```text
-02_club_analysis.ipynb
+docs/methodology.md
+docs/results.md
+docs/limitations.md
+docs/how_to_run.md
 ```
 
 ---
 
-### Basic Trajectory
+## Limitações
 
-Primeiras simulações de trajetória.
+Este projeto não pretende reproduzir perfeitamente todos os mecanismos internos do PangYa.
 
-Notebook:
+Algumas diferenças ainda existem entre os resultados simulados e o comportamento observado no jogo.
+
+As principais limitações conhecidas estão documentadas em:
 
 ```text
-03_basic_trajectory.ipynb
+docs/limitations.md
 ```
 
 ---
 
-### Sensitivity Analysis
+## Aprendizados
 
-Comparação de cenários:
+Este projeto permitiu aplicar conceitos de:
 
-* sem vento
-* vento frontal
-* vento traseiro
-* vento lateral
-* spin
-* curva
-
-Notebook:
-
-```text
-04_sensitivity_analysis.ipynb
-```
-
----
-
-### Distance Solver
-
-Busca de velocidade para distância-alvo.
-
-Notebook:
-
-```text
-05_distance_solver.ipynb
-```
-
----
-
-### Solver Grid Analysis
-
-Avaliação do solver para múltiplas distâncias.
-
-Notebook:
-
-```text
-06_solver_grid_analysis.ipynb
-```
-
----
-
-### Club Solver Comparison
-
-Comparação entre tacos.
-
-Notebook:
-
-```text
-07_club_solver_comparison.ipynb
-```
-
----
-## Validação do Solver
-
-O algoritmo `find_power()` foi submetido a testes utilizando múltiplos tacos e diferentes distâncias alvo.
-
-Resultados observados:
-
-* Convergência em todos os cenários válidos analisados
-* Erro absoluto máximo inferior a 0.5 jarda
-* Média de convergência entre 7 e 8 iterações
-* Resultados consistentes entre Woods, Irons e Wedges
-
-Esses resultados indicam que a implementação atual é estável para utilização em análises e simulações.
-
----
-
-### Power Audit
-
-Validação do algoritmo `find_power()` para diferentes tacos e distâncias.
-
-Objetivos:
-
-* medir convergência;
-* avaliar erro residual;
-* identificar distâncias inalcançáveis;
-* validar comportamento físico do simulador.
-
-Notebook:
-
-```text
-17_power_audit.ipynb
-```
-
----
-
-```markdown
-## Dashboard Streamlit
-
-O projeto possui um dashboard interativo desenvolvido em Streamlit.
-
-Funcionalidades:
-
-* Seleção de taco
-* Distância alvo
-* Configuração de vento
-* Cálculo automático da potência necessária
-* Visualização da trajetória da bola
-* Métricas de voo
-    * potência necessária
-    * distância final
-    * erro
-    * altura máxima
-    * tempo de voo
-```
-
-## Resultados Preliminares
-
-Alguns insights já observados:
-
-* Relação não linear entre potência e distância.
-* Diferenças significativas de trajetória entre Woods, Irons e Wedges.
-* O solver converge de forma consistente para múltiplos cenários.
-* O simulador consegue identificar automaticamente limitações físicas dos tacos.
-* Exemplo observado durante os testes: um SW não consegue atingir 300y mesmo em potência máxima.
-
-O foco das próximas etapas será transformar essas simulações em datasets analíticos e visualizações exploratórias.
-
----
-
-## Roadmap
-
-### Fase 1 — Estrutura e Física Básica
-
-* [x] Estrutura do projeto
-* [x] Vetores 3D
-* [x] Ball
-* [x] Club
-* [x] Wind
-* [x] Simulator básico
-* [x] Testes unitários
-
-### Fase 2 — Simulação e Validação
-
-* [x] Solver inicial
-* [x] Club Analysis
-* [x] Trajetórias básicas
-* [x] Sensitivity Analysis
-
-### Fase 3 — Engenharia Reversa da Smart Calc
-
-* [ ] Portar `initShot()`
-* [ ] Portar `getSlope()`
-* [ ] Portar `getValuesDegree()`
-
-### Fase 4 — Solver Avançado e Auditoria
-
-* [x] Implementar `find_power()`
-* [x] Power Audit
-* [x] Dataset Analítico
-* [ ] Comparação Python vs Smart Calc
-
-### Fase 5 — Analytics e Visualização
-
-* [x] Dashboard Streamlit
-* [x] Visualizações de Trajetória
-* [x] Curvas de Potência
-* [x] Exportação de Datasets
-* [ ] Visualização 3D
-* [ ] Deploy
-
----
-
-## Principais Resultados
-
-Até o momento o projeto já produziu:
-
-* Simulador físico funcional
-* Solver de potência validado
-* Dataset analítico dos tacos
-* Curvas de potência
-* Comparações de trajetória
-* Dashboard interativo
+* Engenharia reversa
+* Simulação física
+* Algoritmos iterativos
 * Testes automatizados
-* Documentação técnica
+* Ciência de dados
+* Visualização de dados
+* Desenvolvimento de dashboards
 
-O projeto evoluiu de uma simples reimplementação da Smart Calculator para uma plataforma de estudo de física, simulação e análise de dados aplicada ao PangYa.
-
----
-
-## Diferencial do Projeto
-
-A Smart Calculator original é uma ferramenta para uso no jogo.
-
-Este projeto possui outro foco:
-
-| Smart Calc       | PangYa Shot Physics      |
-| ---------------- | ------------------------ |
-| Calculadora      | Projeto Analítico        |
-| JavaScript       | Python                   |
-| Foco em jogar    | Foco em entender         |
-| Resultado direto | Documentação e validação |
-| Ferramenta       | Portfólio de Dados       |
-
-O objetivo não é apenas reproduzir resultados, mas compreender, documentar e analisar o comportamento físico do jogo através de métodos modernos de simulação e análise de dados.
+Mais do que reproduzir uma calculadora de jogo, este projeto serviu como um estudo completo de modelagem matemática e análise de dados utilizando Python.
 
 ---
 
 ## Autor
 
-Felipe Augusto Allage
+**Felipe Allage**
 
-Projeto desenvolvido para aprofundamento em:
+Administrador | Data Analytics | Python | SQL | Visualização de Dados
 
-* Python
-* Simulação Física
-* Data Analytics
-* Engenharia Reversa
-* Visualização de Dados
-* Desenvolvimento de Portfólio Técnico
+GitHub:
+https://github.com/felipeallage
 
-
-- Python
-- Simulação
-- Data Analytics
-- Engenharia Reversa
-- Visualização de Dados
+LinkedIn:
+https://www.linkedin.com/in/felipeallage
